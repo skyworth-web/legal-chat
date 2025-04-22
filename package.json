@@ -1,0 +1,23 @@
+{
+  "name": "legal-chatbot",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "server.mjs",
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "@langchain/community": "^0.3.41",
+    "@langchain/core": "^0.3.45",
+    "@langchain/openai": "^0.5.5",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^4.18.2",
+    "hnswlib-node": "^1.4.2",
+    "langchain": "^0.0.139",
+    "openai": "^4.18.0",
+    "pdf-parse": "^1.1.1",
+    "socket.io": "^4.7.2"
+  }
+}

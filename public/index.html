@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Singapore Law Chatbot</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 30px auto; }
+    #messages { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll; }
+    .user { font-weight: bold; }
+    .bot { color: green; }
+  </style>
+</head>
+<body>
+  <h2>Singapore Law Chatbot</h2>
+  <div id="messages"></div>
+  <form id="chat-form">
+    <input id="input" autocomplete="off" placeholder="Ask about SFA2001 or CoA1967..." /><button>Send</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("input");
+    const messages = document.getElementById("messages");
+
+    function appendMessage(sender, text) {
+      const div = document.createElement("div");
+      div.classList.add(sender);
+      div.innerHTML = `<strong>${sender}:</strong> ${text.replace(/\n/g, "<br>")}`;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const msg = input.value;
+      appendMessage("user", msg);
+      socket.emit("chat message", msg);
+      input.value = "";
+    });
+
+    socket.on("chat response", msg => {
+      appendMessage("bot", msg);
+    });
+  </script>
+</body>
+</html>
